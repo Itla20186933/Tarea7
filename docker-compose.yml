@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    image: php:7.4-apache
+    container_name: php-apache
+    volumes:
+      - ./public:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:
+      - ./env/.env
+    ports:
+      - "3306:3306"
+
+volumes:
+  db_data:
